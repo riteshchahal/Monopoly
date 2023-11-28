@@ -20,7 +20,6 @@ public class Player {
     int getGameType(){
         Random random = new Random();
         int x = random.nextInt(3);
-
         return x;
     }
     boolean reducePlayerMoney(int dec){
@@ -36,6 +35,12 @@ public class Player {
     void increasePlayerMoney(int inc){
         this.playerMoney+=inc;
     }
+    boolean buyOrNot(Player p,Card card){
 
+    if(p.gameType==1){
+        return true;
+    }
+    return false;
+    }
 
 }

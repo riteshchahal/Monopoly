@@ -4,63 +4,33 @@ public class Simulation {
     void continuePlay(){
         Card[] board = makeBoard();
         Scanner scan = new Scanner(System.in);
-        System.out.print("Enter Number of players:");
-        int numOfplayer = scan.nextInt();
+        int numOfplayer = 2;
         Player[] playersList = new Player[numOfplayer];
 
 
 
-        for(int i=0;i<numOfplayer;i++){
-            System.out.printf("Enter Player %d name:",i+1);
-            System.out.println();
-            String name = scan.next();
-            Player p = new Player(name);
-            playersList[i]=p;
 
-        }
+        Player p1 = new Player("Ritesh");
+        playersList[0]=p1;
+        Player p2 = new Player("Aryan");
+        playersList[1]=p2;
 
-        while(true){
+
+
+        while(p1.playerMoney!=0 && p2.playerMoney!=0){
             for(int j = 0;j<numOfplayer;j++){
                 Player currentPlayer = playersList[j];
 
-                System.out.printf("%s Turn. Do you want to take the turn? y/n:",currentPlayer.name);
+                System.out.printf("%s Turn.\n",currentPlayer.name);
+
+                turn(currentPlayer, board,playersList);
+
+                System.out.printf("Current Player-%s\nPosition:%d\nMoney:%d\n",currentPlayer.name,currentPlayer.position,currentPlayer.playerMoney);
                 System.out.println();
 
-                String con = scan.next();
-                if(Objects.equals(con, "n")){
-                    System.out.print("What do you want \n1.Build a house  -Press 1\n2.Sell a property  -Press 2\n3.Quit  -Press 3\n4.Continue  -Press 4\n");
-                    int an =scan.nextInt();
-
-
-                    if(an == 1){
-                        System.out.print("BUILD FUNCTION REQUIRED ");
-                    }else if(an ==2){
-                        System.out.print("SELL FUNCTION REQUIRED");
-                    } else if (an ==3) {
-                        break;
-                    }else if(an ==4){
-                        break;
-                    }
-                    else{
-                        System.out.print("Continuing the game. \n");
-                    }
-
-                }
-
-                else{
-
-                    turn(currentPlayer, board,playersList);
-
-                    System.out.printf("Current Player-%s\nPosition:%d\nMoney:%d\n",currentPlayer.name,currentPlayer.position,currentPlayer.playerMoney);
-                }
             }
-            System.out.print("Next round or stop?\n");
-            String con1 = scan.next();
 
-            if(Objects.equals(con1, "stop")){
-                System.out.print("Game over");
-                break;
-            }
+
         }
 
 
