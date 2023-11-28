@@ -1,8 +1,6 @@
 import java.util.*;
 
 public class Simulation {
-
-
     void continuePlay(){
         Card[] board = makeBoard();
         Scanner scan = new Scanner(System.in);
@@ -113,10 +111,14 @@ public class Simulation {
                 }
             }else if(!board[p.position].equals("Bank")) {
                 System.out.printf("%s is the owner, therefore %s has to pay rent \n",board[p.position].owner,p.name);
+                System.out.printf("Rent Payed:%d\n",board[p.position].rent);
                 p.reducePlayerMoney(board[p.position].rent);
+
+
             }
         }else if (Objects.equals(board[p.position].type, "chance")) {
-            System.out.print("CHANCE FUNCTION REQUIRED\n");
+            board[p.position].chanceResult(p);
+
 
 
         }else if (Objects.equals(board[p.position].type, "communityChest")) {
@@ -124,15 +126,18 @@ public class Simulation {
 
 
         }else if (Objects.equals(board[p.position].type, "freeParking")) {
-            System.out.print("FREE PARKING FUNCTION REQUIRED\n");
+            System.out.println("It's a FREE PARKING");
 
 
         }else if (Objects.equals(board[p.position].type, "goToJail")) {
-            System.out.print("GO TO JAIL FUNCTION REQUIRED\n");
+            System.out.println(board[p.position]);
+            System.out.println("Pay 40$ to get of Jail");
+            p.reducePlayerMoney(40);
+            p.position=10;
 
 
         }else if (Objects.equals(board[p.position].type, "jail")) {
-            System.out.print("VISITING JAIL FUNCTION REQUIRED\n");
+            System.out.println(board[p.position]);
 
 
         }
@@ -171,5 +176,6 @@ public class Simulation {
         return buyer;
 
     }
+
 
 }

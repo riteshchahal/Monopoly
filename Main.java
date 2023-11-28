@@ -8,8 +8,11 @@ public class Main {
 
 
 
-        Play newPlay = new Play();
-        newPlay.continuePlay();
+//        Play newPlay = new Play();
+//        newPlay.continuePlay();
+//
+        Simulation newGame = new Simulation();
+        newGame.continuePlay();
 
 
 

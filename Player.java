@@ -4,9 +4,11 @@ public class Player {
 
     String name;
     int gameType;
-    int playerMoney = 1000;
+    int playerMoney = 2000;
     int position = 0;
     Card[] playerCardList = new Card[20];
+    int jailPass=0;
+
 
     Player(String name){
         this.name = name;
