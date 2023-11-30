@@ -15,7 +15,7 @@ public class Play {
             System.out.printf("Enter Player %d name:",i+1);
             System.out.println();
             String name = scan.next();
-            Player p = new Player(name);
+            Player p = new Player(name,1);
             playersList[i]=p;
 
         }
