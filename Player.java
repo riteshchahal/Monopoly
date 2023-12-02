@@ -1,6 +1,5 @@
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class Player {
 
@@ -22,23 +21,25 @@ public class Player {
         return this.name;
     }
 
-
-    int getGameType(){
-        Random random = new Random();
-        int x = random.nextInt(3);
-        return x;
-    }
-    boolean reducePlayerMoney(int dec){
+    boolean fundCheck(int dec){
         if(this.playerMoney-dec>=0){
-            this.playerMoney -=dec;
             return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    void reducePlayerMoney(int dec){
+        boolean fundcheck = fundCheck(dec);
+        if(fundcheck){
+            this.playerMoney -=dec;
         }else{
             System.out.print("Player don't have sufficient Funds\n");
             bankcrupt = true;
-            return false;
         }
-
     }
+
     void increasePlayerMoney(int inc){
         if(bankcrupt){
             bankcrupt=!bankcrupt;
@@ -51,18 +52,53 @@ public class Player {
         if(p.gameType==1){
             return true;
         } else if (p.gameType==2) {
-            if((double) card.costOfBuy /card.rent<=1.5){
+            if((double) card.costOfBuy /card.rent<=1.8){
                 return true;
             }return false;
         } else if (p.gameType==3) {
             boolean flag = true;
-            for(Card x: p.playerCardList){
-                if(!x.house){
-                    flag = false;
-                }
+            if(this.playerMoney<750){
+                flag=false;
             }return flag;
         }
         return false;
-        }
+
+    }
+
+    boolean bet(Card card){
+       if (this.gameType==1){
+           if(fundCheck(card.costOfBuy+card.costOfBuy/10)){
+               this.reducePlayerMoney(card.costOfBuy+card.costOfBuy/10);
+               System.out.printf("Bet from %s for buying %s:%d\n",this.name,card.name,card.costOfBuy+card.costOfBuy/10);
+               card.owner=this.name;
+               this.playerCardList.add(card);
+               return true;
+           }else{
+               return false;
+           }
+       }else if(this.gameType==2){
+           if(fundCheck(card.costOfBuy)&& (double)card.costOfBuy/card.rent<=1.8){
+               this.reducePlayerMoney(card.costOfBuy);
+               System.out.printf("Bet from %s for buying %s:%d\n",this.name,card.name,card.costOfBuy);
+               card.owner=this.name;
+               this.playerCardList.add(card);
+               return true;
+           }
+           return false;
+       }else{
+           boolean flag = true;
+
+           if(this.playerMoney<750){
+               flag=false;
+           }
+           if(flag){
+               System.out.printf("Bet from %s for buying %s:%d\n",this.name,card.name,card.costOfBuy);
+           }return flag;
+       }
+
+
+
+    }
+
 
 }

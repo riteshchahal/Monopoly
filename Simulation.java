@@ -13,6 +13,7 @@ public class Simulation {
         playersList[1]=p2;
 
 
+
         while(p1.playerMoney!=0 && p2.playerMoney!=0){
             for(int j = 0;j<numOfplayer;j++){
                 Player currentPlayer = playersList[j];
@@ -42,9 +43,6 @@ public class Simulation {
 
 
 
-
-
-
     int rollDice(){
         Random random = new Random();
         int x = random.nextInt(6)+1;
@@ -54,11 +52,11 @@ public class Simulation {
         return x+y;
     }
     void turn(Player p, Card[] board,Player[] playersList){
-        Scanner scan = new Scanner(System.in);
+
+
         System.out.printf("Type of Strategy:%s\n",p.gameType);
+
         int diceNumber = rollDice();
-
-
         int newP = p.position+diceNumber;
 
         if(newP>=36){
@@ -72,19 +70,30 @@ public class Simulation {
             if(Objects.equals(board[p.position].owner, "Bank")) {
 
                 boolean buy = p.buyOrNot(p,board[p.position]);
-                boolean flag =p.reducePlayerMoney(board[p.position].costOfBuy);
+                boolean flag =p.fundCheck(board[p.position].costOfBuy);
                 if(flag&&buy){
                     board[p.position].owner = p.name;
+                    p.reducePlayerMoney(board[p.position].costOfBuy);
                     p.playerCardList.add(board[p.position]);
                     System.out.printf("Congratulation for buying %s\n",board[p.position].name);
-                }else if(!buy){
-                    Player buyer = auction(p,playersList);
-                    System.out.printf("%s is new owner \n",buyer.name);
-                    board[p.position].owner=buyer.name;
-                }else if(!flag){
-                    Player buyer = auction(p,playersList);
-                    System.out.printf("%s is new owner \n",buyer.name);
-                    board[p.position].owner=buyer.name;
+//                }else if(!buy){
+//                    boolean betCheck= p2.bet(board[p.position]);
+//                    if(betCheck){
+//                        System.out.printf("%s is new owner \n",p2.name);
+//
+//                    }
+//                    else{
+//                        System.out.printf("%s is still unsold\n",board[p.position].name);
+//                    }
+//                }else if(!flag){
+//                    boolean betCheck= p2.bet(board[p.position]);
+//                    if(betCheck){
+//                        System.out.printf("%s is new owner \n",p2.name);
+//
+//                    }
+//                    else{
+//                        System.out.printf("%s is still unsold\n",board[p.position].name);
+//                    }
                 }
 
 
@@ -92,6 +101,7 @@ public class Simulation {
                 System.out.printf("%s is the owner, therefore %s has to pay rent \n",board[p.position].owner,p.name);
                 System.out.printf("Rent Payed:%d\n",board[p.position].rent);
                 p.reducePlayerMoney(board[p.position].rent);
+
 
             }else if(!board[p.position].equals("Bank") && board[p.position].equals(board[p.position].owner)){
                 System.out.printf("This is your property, Enjoy your stay.\n");
@@ -119,14 +129,14 @@ public class Simulation {
                 System.out.println(board[p.position]);
                 System.out.println("Pay 40$ to get of Jail");
                 p.reducePlayerMoney(40);
-                p.position=10;
             }
 
 
         }else if (Objects.equals(board[p.position].type, "jail")) {
-            System.out.println(board[p.position]);
+            System.out.print(board[p.position]);
 
-
+        }else if(Objects.equals(board[p.position].type, "GO")){
+            System.out.print(board[p.position]);
         }
 
     }
@@ -141,28 +151,7 @@ public class Simulation {
 
 
 
-    Player auction(Player x, Player[] p){
-        Scanner scan = new Scanner(System.in);
 
-        int num = p.length;
-        ArrayList<Player> playerForBet = new ArrayList<Player>();
-        ArrayList<Integer> bet = new ArrayList<Integer>();
-
-        for(int i=0;i<num;i++){
-            if(!Objects.equals(p[i].name, x.name)){
-
-                playerForBet.add(p[i]);
-                System.out.printf("How much %s want to bet:",p[i].name);
-                int ans1 = scan.nextInt();
-                bet.add(ans1);
-
-            }
-        }int y = Collections.max(bet);
-        Player buyer = playerForBet.get(bet.indexOf(y));
-        buyer.reducePlayerMoney(y);
-        return buyer;
-
-    }
 
 
 }
