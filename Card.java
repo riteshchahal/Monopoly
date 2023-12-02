@@ -11,11 +11,10 @@ public class Card {
 
     String type;
 
-    Card(String name, int costOfBuy, int rent, String color) {
+    Card(String name, int costOfBuy, int rent) {
         this.name = name;
         this.costOfBuy = costOfBuy;
         this.rent = rent;
-        this.color = color;
         type = typeOfCard(name);
 
 
@@ -47,7 +46,7 @@ public class Card {
                 return str;
 
             default:
-                str = "Name of the card:" + this.name + "\n" + "Cost of the card:" + this.costOfBuy + "\n" +"Rent from this property:"+this.rent+"\n"+ "Color of the card:" + this.color + "\n";
+                str = "Name of the card:" + this.name + "\n" + "Cost of the card:" + this.costOfBuy + "\n" +"Rent from this property:"+this.rent + "\n";
                 return str;
         }
 
