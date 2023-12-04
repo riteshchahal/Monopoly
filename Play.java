@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.*;
 
 public class Play {
@@ -32,7 +33,6 @@ public class Play {
                 } else {
                     win2++;
                 }
-
             }
             winRate= String.valueOf(win1)+"/"+String.valueOf(win2);
 
@@ -68,8 +68,10 @@ public class Play {
 
                 turn(currentPlayer, board,otherPlayer);
 
+
                 System.out.printf("Current Player-%s\nPosition:%d\nMoney:%d\n",currentPlayer.name,currentPlayer.position,currentPlayer.playerMoney);
                 System.out.println();
+                currentPlayer.houseYesNO();
                 if(p1.bankcrupt && p1.playerCardList.size()>0){
                     System.out.printf("%s don't have sufficient fund, Therefore %s has to sell his property\n",p1.name,p1.name);
                     for(Card c: p1.playerCardList){

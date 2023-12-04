@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
 
 
 public class Player {
@@ -7,6 +9,7 @@ public class Player {
     int gameType;
     int playerMoney = 2000;
     int position = 0;
+
     ArrayList<Card> playerCardList = new ArrayList<Card>();
     boolean bankcrupt=false;
     int jailPass=0;
@@ -95,9 +98,28 @@ public class Player {
                System.out.printf("Bet from %s for buying %s:%d\n",this.name,card.name,card.costOfBuy);
            }return flag;
        }
+    }
+    void houseYesNO(){
+        if(this.gameType==1){
+            System.out.printf("%s don't like to build house\n",this.name);
+        }else if(this.gameType==2){
+            if(!this.playerCardList.isEmpty()) {
+                if (this.playerCardList.size() / 7 == 0) {
+                    Random random = new Random();
+                    int x = random.nextInt(this.playerCardList.size());
+                    if (!this.playerCardList.get(x).house && Objects.equals(this.playerCardList.get(x).type, "countryCard")) {
+                        this.playerCardList.get(x).buildHouse(this);
+                    }
+                }
+            }
+        }else{
 
-
-
+            for(int i=0;i<playerCardList.size();i++){
+                if(!playerCardList.get(i).house && Objects.equals(playerCardList.get(i).type, "countryCard")){
+                    playerCardList.get(i).buildHouse(this);
+                }
+            }
+        }
     }
 
 

@@ -3,7 +3,6 @@ import java.util.Random;
 public class Card {
     String name;
     int costOfBuy;
-    String color;
     boolean house = false;
     int rent;
     int costOfhouse;
@@ -11,10 +10,11 @@ public class Card {
 
     String type;
 
-    Card(String name, int costOfBuy, int rent) {
+    Card(String name, int costOfBuy, int rent,int costofhouse) {
         this.name = name;
         this.costOfBuy = costOfBuy;
         this.rent = rent;
+        this.costOfhouse = costofhouse;
         type = typeOfCard(name);
 
 
@@ -164,6 +164,6 @@ public class Card {
         p.reducePlayerMoney(this.costOfhouse);
         this.house=true;
         this.rent+=this.rent/2;
-        System.out.println("House has been build");
+        System.out.printf("House has been build on: %s By %s \n",this.name,p.name);
     }
 }
